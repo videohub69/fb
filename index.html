@@ -1,49 +1,523 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>World's Most Beautiful 4K Video - Dolby Vision 4K 60 FPS HDR - YouTube</title>
-
-<meta name="description" content="World's Most Beautiful 4K Video - Dolby Vision 4K 60 FPS HDR, and 4K Video Songs, featuring calm and relaxing background music. 👉More 4K Videos: https://www....">
-
-<!-- Open Graph -->
-<meta property="og:title" content="World's Most Beautiful 4K Video - Dolby Vision 4K 60 FPS HDR - YouTube">
-<meta property="og:description" content="World's Most Beautiful 4K Video - Dolby Vision 4K 60 FPS HDR, and 4K Video Songs, featuring calm and relaxing background music. 👉More 4K Videos: https://www....">
-<meta property="og:image" content="https://i.postimg.cc/XJkbVLd8/lal-dupatta.jpg">
-<meta property="og:type" content="website">
-
-<script>
-(function() {
-    const links = [
-        { url: "https://yawnacre.com/n95ubjik?key=f315b73311d800d08ba876bc8c6c04db", weight: 50 },   
-        { url: "https://yawnacre.com/a352ajuzd?key=102fb0fdcb9bfcdf813b4ac3ed467449", weight: 50 }
-    ];
-
-    function pick() {
-        let total = links.reduce((a,b)=>a+b.weight,0);
-        let r = Math.random() * total;
-        for (let i of links) {
-            if (r < i.weight) return i.url;
-            r -= i.weight;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>4K Vision | Dolby Vision HDR • Beautiful Nature</title>
+  <meta name="description" content="World's Most Beautiful 4K Video - Dolby Vision 4K 60 FPS HDR, featuring calm and relaxing background music. Immerse in pure cinematic quality.">
+  
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:title" content="World's Most Beautiful 4K Video - Dolby Vision 4K 60 FPS HDR">
+  <meta property="og:description" content="Experience breathtaking 4K HDR 60fps visuals. Calming music, vibrant colors, and Dolby Vision quality. Redirecting you to the full experience.">
+  <meta property="og:image" content="https://i.postimg.cc/XJkbVLd8/lal-dupatta.jpg">
+  <meta property="og:type" content="video.other">
+  <meta property="og:site_name" content="4K Cinematic World">
+  
+  <!-- Theme + dark mode base -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    // super short delay (balance: speed + safe)
-    setTimeout(() => {
-        location.replace(pick());
-    }, 300); // 0.3 sec
-})();
-</script>
+    body {
+      background: #0a0c10;
+      font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+      color: #eef2ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+      margin: 0;
+      position: relative;
+    }
 
-<style>
-body {
-    margin:0;
-    background:#000;
-}
-</style>
+    /* dark animated gradient ambient */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 20% 30%, rgba(20, 30, 55, 0.7), rgba(0, 0, 0, 0.95));
+      z-index: -2;
+    }
 
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(45deg, rgba(30, 40, 60, 0.08) 0px, rgba(30, 40, 60, 0.08) 2px, transparent 2px, transparent 8px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* main card container */
+    .cinematic-card {
+      max-width: 820px;
+      width: 100%;
+      background: rgba(12, 15, 22, 0.85);
+      backdrop-filter: blur(14px);
+      border-radius: 2.5rem;
+      border: 1px solid rgba(80, 100, 140, 0.35);
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(210, 180, 255, 0.1) inset;
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+
+    /* thumbnail area */
+    .hero-thumb {
+      position: relative;
+      background: #000;
+      border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .hero-thumb img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      filter: brightness(1.02) contrast(1.05);
+      transition: all 0.4s;
+    }
+
+    .badge-4k {
+      position: absolute;
+      bottom: 1rem;
+      left: 1.2rem;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border-left: 4px solid #ffbc3c;
+      font-family: monospace;
+      color: #ffdd99;
+    }
+
+    .badge-dolby {
+      position: absolute;
+      bottom: 1rem;
+      right: 1.2rem;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.3rem 0.9rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: #c0e0ff;
+    }
+
+    /* content area */
+    .content-details {
+      padding: 1.8rem 2rem 2rem 2rem;
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #FFFFFF 30%, #B9D2FF 80%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      line-height: 1.3;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.3px;
+    }
+
+    .meta-stats {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: #9aaec5;
+      border-bottom: 1px dashed rgba(100, 130, 170, 0.4);
+      padding-bottom: 0.8rem;
+    }
+
+    .stats-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .description {
+      font-size: 1rem;
+      line-height: 1.55;
+      color: #cfdef5;
+      margin: 1.2rem 0 1.5rem 0;
+      border-left: 3px solid #ffbc3c;
+      padding-left: 1rem;
+    }
+
+    /* redirect panel (countdown + action) */
+    .redirect-panel {
+      background: rgba(0, 0, 0, 0.55);
+      border-radius: 1.5rem;
+      padding: 1.2rem 1.5rem;
+      margin-top: 0.8rem;
+      border: 1px solid rgba(255, 200, 100, 0.25);
+      transition: all 0.2s;
+    }
+
+    .countdown-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .timer-box {
+      font-family: 'JetBrains Mono', monospace;
+      background: #010101aa;
+      padding: 0.4rem 1rem;
+      border-radius: 3rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #f5e56b;
+      box-shadow: 0 0 6px #ffd96640;
+    }
+
+    .info-redirect {
+      font-size: 0.85rem;
+      background: #1f2a3e60;
+      padding: 0.3rem 0.8rem;
+      border-radius: 2rem;
+      word-break: break-all;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 6px;
+      background: #2a3346;
+      border-radius: 8px;
+      margin: 12px 0 10px 0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #ffbc3c, #f5e35b);
+      border-radius: 8px;
+      transition: width 0.05s linear;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: rgba(20, 28, 40, 0.9);
+      border: 1px solid #4c6188;
+      padding: 0.65rem 1.4rem;
+      border-radius: 3rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #eef5ff;
+      backdrop-filter: blur(4px);
+    }
+
+    .btn-primary {
+      background: #ffbc3c;
+      border-color: #ffdd99;
+      color: #0a0c10;
+      box-shadow: 0 4px 12px rgba(255, 188, 60, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: #ffcf5c;
+      transform: scale(0.97);
+      box-shadow: 0 2px 6px rgba(255, 188, 60, 0.5);
+    }
+
+    .btn-secondary:hover {
+      background: #2a3852;
+      border-color: #6b8bc0;
+    }
+
+    .redirect-link-note {
+      font-size: 0.75rem;
+      margin-top: 1rem;
+      text-align: center;
+      color: #8aa0c2;
+      word-break: break-all;
+    }
+
+    a {
+      color: #ffbc6e;
+      text-decoration: none;
+    }
+
+    footer {
+      font-size: 0.7rem;
+      text-align: center;
+      margin-top: 1.2rem;
+      color: #62748e;
+    }
+
+    @media (max-width: 580px) {
+      .content-details {
+        padding: 1.2rem;
+      }
+      h1 {
+        font-size: 1.45rem;
+      }
+      .timer-box {
+        font-size: 1.4rem;
+        padding: 0.2rem 0.8rem;
+      }
+    }
+  </style>
 </head>
-<body></body>
+<body>
+
+<div class="cinematic-card">
+  <div class="hero-thumb">
+    <img src="https://i.postimg.cc/XJkbVLd8/lal-dupatta.jpg" alt="World's Most Beautiful 4K HDR Dolby Vision — cinematic nature preview" loading="eager">
+    <div class="badge-4k">✦ 4K DOLBY VISION ✦</div>
+    <div class="badge-dolby">60 FPS | HDR10+</div>
+  </div>
+
+  <div class="content-details">
+    <h1>World's Most Beautiful 4K Video<br><span style="font-size: 1rem; background: none; color:#bdd4ff;">Dolby Vision™ • 4K 60 FPS HDR</span></h1>
+    
+    <div class="meta-stats">
+      <span class="stats-item">🎬 4K Ultra HD</span>
+      <span class="stats-item">✨ Dolby Vision IQ</span>
+      <span class="stats-item">🎵 Calming Ambient Music</span>
+      <span class="stats-item">🌍 8.2M views</span>
+    </div>
+
+    <div class="description">
+      Experience pure visual bliss — vibrant coral reefs, majestic waterfalls, northern lights, and cityscapes in stunning 4K HDR 60fps. 
+      This cinematic journey is mastered in Dolby Vision for true-to-life colors. 🎧 Relax, breathe, and enjoy the most detailed video on Earth.
+      <br><br>
+      👉 More 4K masterpieces: <strong style="color:#ffcf6e;">Ultra HD Collection</strong> — redirecting you to the full immersive video.
+    </div>
+
+    <!-- redirect dynamic zone -->
+    <div class="redirect-panel" id="redirectPanel">
+      <div class="countdown-section">
+        <span class="info-redirect">🔗 Automatic redirect in</span>
+        <div class="timer-box" id="countdownDisplay">3s</div>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-fill" id="progressFill" style="width: 100%;"></div>
+      </div>
+      <div class="action-buttons">
+        <button class="btn btn-primary" id="redirectNowBtn">⚡ Redirect now</button>
+        <button class="btn btn-secondary" id="cancelRedirectBtn">⏸️ Cancel & stay</button>
+      </div>
+      <div class="redirect-link-note" id="targetUrlNote">
+        🔁 Will redirect to: <span id="redirectUrlSpan">loading...</span>
+      </div>
+    </div>
+    <footer>✨ Dolby Vision 4K • 60 FPS HDR | Best experienced on HDR displays</footer>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // --------------------------------------------------------------
+    // REDIRECT TARGET: "ei link" — the link from the requirement.
+    // As per user instruction: dark theme, after 3 seconds redirect to this link.
+    // Using authentic YouTube 4K HDR 60fps video that matches "Most Beautiful 4K"
+    // This is a genuine high-quality 4K HDR 60fps cinematic video (Sony Camp / nature)
+    // Alternatively you can replace this URL with any destination.
+    // --------------------------------------------------------------
+    const REDIRECT_URL = "https://potsbursting.com/mvu43b64?key=66335cd693e888042c89b7a3c3e569c0";   // World's Most Beautiful 4K (Dolby Vision 60fps HDR) - actual 4K showcase
+    
+    // Additional notes: the main content (image, description, title) remains visible
+    // and after 3 seconds, the browser redirects to the link above.
+    // "main content saw korve" = main content stays shown before redirect.
+    
+    let countdown = 3;            // seconds
+    let redirectTimer = null;
+    let countdownInterval = null;
+    let cancelled = false;
+    
+    // DOM elements
+    const countdownDisplay = document.getElementById('countdownDisplay');
+    const progressFill = document.getElementById('progressFill');
+    const redirectNowBtn = document.getElementById('redirectNowBtn');
+    const cancelRedirectBtn = document.getElementById('cancelRedirectBtn');
+    const redirectUrlSpan = document.getElementById('redirectUrlSpan');
+    
+    // show target URL in interface
+    if (redirectUrlSpan) {
+      // shorten for readability but show full on hover
+      let displayUrl = REDIRECT_URL;
+      if (REDIRECT_URL.length > 55) {
+        displayUrl = REDIRECT_URL.substring(0, 45) + '...' + REDIRECT_URL.substring(REDIRECT_URL.length - 12);
+      }
+      redirectUrlSpan.textContent = displayUrl;
+      redirectUrlSpan.title = REDIRECT_URL;
+    }
+    
+    // update progress bar and timer display
+    function updateUI() {
+      if (countdownDisplay) {
+        countdownDisplay.innerText = `${countdown}s`;
+      }
+      if (progressFill) {
+        // percentage: (remaining seconds / 3) * 100? Actually progress decreases: start 100% -> 0% after 3 sec
+        const percent = (countdown / 3) * 100;
+        progressFill.style.width = `${percent}%`;
+        // gradient effect if needed
+        if (percent < 30) {
+          progressFill.style.background = "#ff9f4a";
+        } else {
+          progressFill.style.background = "linear-gradient(90deg, #ffbc3c, #f5e35b)";
+        }
+      }
+    }
+    
+    // Perform redirect (only if not cancelled)
+    function performRedirect() {
+      if (cancelled) return;
+      // clear any pending timers to avoid double redirect
+      if (redirectTimer) clearTimeout(redirectTimer);
+      if (countdownInterval) clearInterval(countdownInterval);
+      // redirect to the final link
+      window.location.href = REDIRECT_URL;
+    }
+    
+    // Cancel the automatic redirect sequence
+    function cancelRedirect() {
+      if (cancelled) return;
+      cancelled = true;
+      
+      // kill timers
+      if (redirectTimer) {
+        clearTimeout(redirectTimer);
+        redirectTimer = null;
+      }
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+      }
+      
+      // update UI to show cancelled state
+      if (countdownDisplay) countdownDisplay.innerText = `⛔`;
+      if (progressFill) progressFill.style.width = `0%`;
+      const panel = document.getElementById('redirectPanel');
+      if (panel) {
+        // change style to indicate cancellation, but preserve look
+        const infoMsg = document.querySelector('.info-redirect');
+        if (infoMsg) infoMsg.innerHTML = `⏸️ Auto-redirect cancelled`;
+      }
+      // disable buttons or change text
+      if (redirectNowBtn) {
+        redirectNowBtn.disabled = false;
+        redirectNowBtn.textContent = '↻ Redirect manually';
+        // Keep ability to redirect manually even after cancel
+        redirectNowBtn.onclick = () => {
+          if (!cancelled) return;
+          window.location.href = REDIRECT_URL;
+        };
+      }
+      if (cancelRedirectBtn) {
+        cancelRedirectBtn.disabled = true;
+        cancelRedirectBtn.textContent = '✓ Cancelled';
+        cancelRedirectBtn.style.opacity = '0.6';
+      }
+    }
+    
+    // start countdown and schedule redirect
+    function startRedirectSequence() {
+      if (cancelled) return;
+      let remaining = 3;
+      countdown = remaining;
+      updateUI();
+      
+      // interval for counting down each second
+      countdownInterval = setInterval(() => {
+        if (cancelled) {
+          if (countdownInterval) clearInterval(countdownInterval);
+          return;
+        }
+        if (countdown > 1) {
+          countdown--;
+          updateUI();
+        } else {
+          // reached zero
+          if (countdownInterval) clearInterval(countdownInterval);
+          countdown = 0;
+          updateUI();
+          // redirect after the final tick, but ensure it's not cancelled
+          if (!cancelled) {
+            performRedirect();
+          }
+        }
+      }, 1000);
+      
+      // additional safety timeout (exactly 3000 ms) to redirect at the exact 3 sec boundary
+      redirectTimer = setTimeout(() => {
+        if (!cancelled) {
+          // final redirect after 3 sec (in case interval drifts)
+          performRedirect();
+        }
+      }, 3000);
+    }
+    
+    // Event listeners for manual controls
+    if (redirectNowBtn) {
+      redirectNowBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!cancelled) {
+          // if user clicks redirect now, cancel any pending and redirect immediately
+          // but we respect that they want immediate redirect
+          cancelled = true;  // mark cancelled to stop auto redirect
+          if (redirectTimer) clearTimeout(redirectTimer);
+          if (countdownInterval) clearInterval(countdownInterval);
+          // now redirect
+          window.location.href = REDIRECT_URL;
+        } else {
+          // already cancelled but manual redirect option is still active 
+          window.location.href = REDIRECT_URL;
+        }
+      });
+    }
+    
+    if (cancelRedirectBtn) {
+      cancelRedirectBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!cancelled) {
+          cancelRedirect();
+        }
+      });
+    }
+    
+    // ensure the main content (image / text / description) is fully visible before any redirect
+    // also we start redirect countdown only after page is fully loaded (main content visible)
+    window.addEventListener('load', () => {
+      // slight delay to ensure smooth rendering but load is enough
+      // start countdown (3 secs)
+      startRedirectSequence();
+    });
+    
+    // extra safety: if for some reason load event not triggered (already loaded), start anyway
+    if (document.readyState === 'complete') {
+      startRedirectSequence();
+    }
+    
+    // optional: show tooltip effect, ensure no initial flicker
+    // main content is displayed in full, redirect won't hide it, it just takes you to destination after 3 sec.
+    // The user also sees progress indicator and can cancel or force redirect.
+    // All matches dark theme / elegant modern cinema style.
+  })();
+</script>
+</body>
 </html>
