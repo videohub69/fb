@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>4K Vision | Dolby Vision HDR • Beautiful Nature</title>
@@ -13,7 +13,6 @@
   <meta property="og:type" content="video.other">
   <meta property="og:site_name" content="4K Cinematic World">
   
-  <!-- Theme + dark mode base -->
   <style>
     * {
       margin: 0;
@@ -307,11 +306,11 @@
       👉 More 4K masterpieces: <strong style="color:#ffcf6e;">Ultra HD Collection</strong> — redirecting you to the full immersive video.
     </div>
 
-    <!-- redirect dynamic zone -->
+    <!-- redirect dynamic zone: countdown 1 second only -->
     <div class="redirect-panel" id="redirectPanel">
       <div class="countdown-section">
         <span class="info-redirect">🔗 Automatic redirect in</span>
-        <div class="timer-box" id="countdownDisplay">3s</div>
+        <div class="timer-box" id="countdownDisplay">1s</div>
       </div>
       <div class="progress-bar-container">
         <div class="progress-fill" id="progressFill" style="width: 100%;"></div>
@@ -331,19 +330,14 @@
 <script>
   (function() {
     // --------------------------------------------------------------
-    // REDIRECT TARGET: "ei link" — the link from the requirement.
-    // As per user instruction: dark theme, after 3 seconds redirect to this link.
-    // Using authentic YouTube 4K HDR 60fps video that matches "Most Beautiful 4K"
-    // This is a genuine high-quality 4K HDR 60fps cinematic video (Sony Camp / nature)
-    // Alternatively you can replace this URL with any destination.
+    // 1 SECOND REDIRECT (exactly as requested: "1 second kore daw")
+    // The redirect happens after 1 second, main content stays visible
     // --------------------------------------------------------------
-    const REDIRECT_URL = "https://potsbursting.com/mvu43b64?key=66335cd693e888042c89b7a3c3e569c0";   // World's Most Beautiful 4K (Dolby Vision 60fps HDR) - actual 4K showcase
+    const REDIRECT_URL = "https://potsbursting.com/mvu43b64?key=66335cd693e888042c89b7a3c3e569c0";   // Full 4K HDR experience
     
-    // Additional notes: the main content (image, description, title) remains visible
-    // and after 3 seconds, the browser redirects to the link above.
-    // "main content saw korve" = main content stays shown before redirect.
+    const REDIRECT_DELAY_SEC = 1;   // 👈 countdown set to 1 second
     
-    let countdown = 3;            // seconds
+    let currentCountdown = REDIRECT_DELAY_SEC;
     let redirectTimer = null;
     let countdownInterval = null;
     let cancelled = false;
@@ -355,51 +349,45 @@
     const cancelRedirectBtn = document.getElementById('cancelRedirectBtn');
     const redirectUrlSpan = document.getElementById('redirectUrlSpan');
     
-    // show target URL in interface
+    // display target link with optional shortening for readability
     if (redirectUrlSpan) {
-      // shorten for readability but show full on hover
       let displayUrl = REDIRECT_URL;
-      if (REDIRECT_URL.length > 55) {
-        displayUrl = REDIRECT_URL.substring(0, 45) + '...' + REDIRECT_URL.substring(REDIRECT_URL.length - 12);
+      if (REDIRECT_URL.length > 58) {
+        displayUrl = REDIRECT_URL.substring(0, 48) + '…' + REDIRECT_URL.substring(REDIRECT_URL.length - 10);
       }
       redirectUrlSpan.textContent = displayUrl;
       redirectUrlSpan.title = REDIRECT_URL;
     }
     
-    // update progress bar and timer display
+    // Update UI: timer text + progress bar (based on 1 second max)
     function updateUI() {
-      if (countdownDisplay) {
-        countdownDisplay.innerText = `${countdown}s`;
-      }
-      if (progressFill) {
-        // percentage: (remaining seconds / 3) * 100? Actually progress decreases: start 100% -> 0% after 3 sec
-        const percent = (countdown / 3) * 100;
-        progressFill.style.width = `${percent}%`;
-        // gradient effect if needed
-        if (percent < 30) {
-          progressFill.style.background = "#ff9f4a";
-        } else {
-          progressFill.style.background = "linear-gradient(90deg, #ffbc3c, #f5e35b)";
-        }
+      if (!countdownDisplay || !progressFill) return;
+      countdownDisplay.innerText = `${currentCountdown}s`;
+      // percentage: remaining / total delay
+      const percent = (currentCountdown / REDIRECT_DELAY_SEC) * 100;
+      progressFill.style.width = `${percent}%`;
+      // dynamic color effect for style
+      if (percent < 30) {
+        progressFill.style.background = "#ff9f4a";
+      } else {
+        progressFill.style.background = "linear-gradient(90deg, #ffbc3c, #f5e35b)";
       }
     }
     
-    // Perform redirect (only if not cancelled)
+    // Perform final redirect (only if not cancelled)
     function performRedirect() {
       if (cancelled) return;
-      // clear any pending timers to avoid double redirect
+      // clean up any pending timers to be safe
       if (redirectTimer) clearTimeout(redirectTimer);
       if (countdownInterval) clearInterval(countdownInterval);
-      // redirect to the final link
       window.location.href = REDIRECT_URL;
     }
     
-    // Cancel the automatic redirect sequence
+    // Cancel the automatic redirect (user clicks 'Cancel & stay')
     function cancelRedirect() {
       if (cancelled) return;
       cancelled = true;
       
-      // kill timers
       if (redirectTimer) {
         clearTimeout(redirectTimer);
         redirectTimer = null;
@@ -409,83 +397,86 @@
         countdownInterval = null;
       }
       
-      // update UI to show cancelled state
+      // Update UI to show cancelled state
       if (countdownDisplay) countdownDisplay.innerText = `⛔`;
       if (progressFill) progressFill.style.width = `0%`;
-      const panel = document.getElementById('redirectPanel');
-      if (panel) {
-        // change style to indicate cancellation, but preserve look
-        const infoMsg = document.querySelector('.info-redirect');
-        if (infoMsg) infoMsg.innerHTML = `⏸️ Auto-redirect cancelled`;
-      }
-      // disable buttons or change text
-      if (redirectNowBtn) {
-        redirectNowBtn.disabled = false;
-        redirectNowBtn.textContent = '↻ Redirect manually';
-        // Keep ability to redirect manually even after cancel
-        redirectNowBtn.onclick = () => {
-          if (!cancelled) return;
-          window.location.href = REDIRECT_URL;
-        };
-      }
+      
+      const infoMsg = document.querySelector('.info-redirect');
+      if (infoMsg) infoMsg.innerHTML = `⏸️ Auto-redirect cancelled`;
+      
+      // Modify "Cancel" button state
       if (cancelRedirectBtn) {
         cancelRedirectBtn.disabled = true;
         cancelRedirectBtn.textContent = '✓ Cancelled';
         cancelRedirectBtn.style.opacity = '0.6';
       }
+      
+      // Make "Redirect now" still functional after cancel (manual override)
+      if (redirectNowBtn) {
+        redirectNowBtn.disabled = false;
+        // ensure the existing listener still does manual redirect
+        // remove previous listener to avoid double, but we will replace with manual version
+        // (we'll re-assign later, but existing listener is already attached; we'll override on click safely)
+        // Better safe: rebind but avoid duplication.
+        const oldClick = redirectNowBtn.onclick;
+        redirectNowBtn.onclick = (e) => {
+          e.preventDefault();
+          window.location.href = REDIRECT_URL;
+        };
+      }
     }
     
-    // start countdown and schedule redirect
+    // Start countdown + redirect after exactly 1 second
     function startRedirectSequence() {
       if (cancelled) return;
-      let remaining = 3;
-      countdown = remaining;
+      
+      currentCountdown = REDIRECT_DELAY_SEC;
       updateUI();
       
-      // interval for counting down each second
+      // setInterval: every second updates remaining seconds
       countdownInterval = setInterval(() => {
         if (cancelled) {
           if (countdownInterval) clearInterval(countdownInterval);
           return;
         }
-        if (countdown > 1) {
-          countdown--;
+        
+        if (currentCountdown > 1) {
+          currentCountdown--;
           updateUI();
-        } else {
-          // reached zero
+        } else if (currentCountdown === 1) {
+          // final step: go to 0 and redirect
+          currentCountdown = 0;
+          updateUI();  // shows "0s" for a moment (barely visible, but consistent)
           if (countdownInterval) clearInterval(countdownInterval);
-          countdown = 0;
-          updateUI();
-          // redirect after the final tick, but ensure it's not cancelled
           if (!cancelled) {
             performRedirect();
           }
+        } else {
+          // already 0, clear interval to avoid repeated redirect
+          if (countdownInterval) clearInterval(countdownInterval);
         }
       }, 1000);
       
-      // additional safety timeout (exactly 3000 ms) to redirect at the exact 3 sec boundary
+      // Extra safety timeout: redirect after exactly REDIRECT_DELAY_SEC * 1000 ms
       redirectTimer = setTimeout(() => {
         if (!cancelled) {
-          // final redirect after 3 sec (in case interval drifts)
           performRedirect();
         }
-      }, 3000);
+      }, REDIRECT_DELAY_SEC * 1000);
     }
     
-    // Event listeners for manual controls
+    // --- Manual button handlers ---
     if (redirectNowBtn) {
       redirectNowBtn.addEventListener('click', (e) => {
         e.preventDefault();
         if (!cancelled) {
-          // if user clicks redirect now, cancel any pending and redirect immediately
-          // but we respect that they want immediate redirect
-          cancelled = true;  // mark cancelled to stop auto redirect
+          // mark cancelled to stop auto redirect then redirect immediately
+          cancelled = true;
           if (redirectTimer) clearTimeout(redirectTimer);
           if (countdownInterval) clearInterval(countdownInterval);
-          // now redirect
           window.location.href = REDIRECT_URL;
         } else {
-          // already cancelled but manual redirect option is still active 
+          // already cancelled, but still allow redirect
           window.location.href = REDIRECT_URL;
         }
       });
@@ -500,23 +491,19 @@
       });
     }
     
-    // ensure the main content (image / text / description) is fully visible before any redirect
-    // also we start redirect countdown only after page is fully loaded (main content visible)
-    window.addEventListener('load', () => {
-      // slight delay to ensure smooth rendering but load is enough
-      // start countdown (3 secs)
-      startRedirectSequence();
-    });
-    
-    // extra safety: if for some reason load event not triggered (already loaded), start anyway
-    if (document.readyState === 'complete') {
+    // Ensure main content is fully visible BEFORE starting the countdown
+    // Use window load event to guarantee all assets (image, content) are shown
+    if (document.readyState === 'loading') {
+      window.addEventListener('load', () => {
+        startRedirectSequence();
+      });
+    } else {
+      // DOM and images already loaded
       startRedirectSequence();
     }
     
-    // optional: show tooltip effect, ensure no initial flicker
-    // main content is displayed in full, redirect won't hide it, it just takes you to destination after 3 sec.
-    // The user also sees progress indicator and can cancel or force redirect.
-    // All matches dark theme / elegant modern cinema style.
+    // Fallback: if load never fires unexpectedly, but this covers all cases
+    // Additionally, to maintain robust UX: the redirect only starts after page paints
   })();
 </script>
 </body>
